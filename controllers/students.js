@@ -37,8 +37,8 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             //authentification réussie avec userId et encodage token
-            userId: student._id,
-            token: jwt.sign({ userId: student._id }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
+            username: student.username,
+            token: jwt.sign({ username: student.username }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
           })
         })
         .catch((error) => res.status(500).json({ error }))
@@ -75,4 +75,14 @@ exports.deleteStudent = (req, res, next) => {
         .catch((error) => res.status(400).json({ error }))
     })
     .catch((error) => res.status(500).json({ error }))
+}
+
+exports.getStudent = (req, res, next) => {
+  Student.findOne({ username: req.params.username })
+    .then((student) => {
+      res.status(200).json(student)
+    })
+    .catch((error) => {
+      res.status(404).json({ error: error })
+    })
 }
