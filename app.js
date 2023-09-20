@@ -43,7 +43,7 @@ const apiLimiter = rateLimit({
   max: 10,
 })
 
-app.use("/api/auth", apiLimiter, userRoutes)
-//app.use("/api/sauces", sauceRoutes)
+//app.use("/api/auth", apiLimiter, userRoutes)
+app.use("/api/sauces", sauceRoutes)
 
 module.exports = app //export de l'app pour y accéder depuis les autres fichiers
