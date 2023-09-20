@@ -3,19 +3,6 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
 exports.createStudent = (req, res, next) => {
-  delete req.body._id
-
-  const employee = new Student({
-    ...req.body,
-  })
-
-  employee
-    .save()
-    .then(() => res.status(201).json({ message: "employee created" }))
-    .catch((err) => res.status(400).json({ err }))
-}
-
-exports.signup = (req, res, next) => {
   //hachage du mot de passe
   bcrypt
     .hash(req.body.password, 10)
@@ -23,6 +10,7 @@ exports.signup = (req, res, next) => {
       const student = new Student({
         username: req.body.username,
         password: hash,
+        droits: req.body.droits,
       })
       //enregistrement de nouveau user dans la bdd
       student
@@ -61,7 +49,7 @@ exports.login = (req, res, next) => {
 exports.updateStudent = (req, res, next) => {
   let studentObject = { ...req.body }
 
-  Student.updateOne({ username: req.body.username }, { ...req.body, _id: req.params.id })
+  Student.updateOne({ username: req.body.username }, { droits: req.body.droits, _id: req.params.id })
     .then((valid) => {
       if (!valid) {
         return res.status(401).json({ error: "Student introuvable" })
