@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
+const express = require("express")
 
-router.get("/", async (req, res, next) => {
-  return res.status(200).json({
-    title: "Express Testing",
-    message: "The app is working properly!",
-  });
-});
+const router = express.Router()
 
-module.exports = router;
+const staffCtrl = require("../controllers/employees")
+
+router.post("/", staffCtrl.createEmployee)
+
+router.get("/", staffCtrl.viewEmployees)
+
+module.exports = router
