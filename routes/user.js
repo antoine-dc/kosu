@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const userCtrl = require("../controllers/user")
+const userCtrl = require("./../controllers/user")
 
 router.get("/home", async (req, res, next) => {
   return res.status(200).json({

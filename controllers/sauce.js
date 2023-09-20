@@ -1,4 +1,4 @@
-const Sauce = require("../models/Sauce") //import du modèle de données
+const Sauce = require("./../models/Sauce") //import du modèle de données
 const fs = require("fs") //gestion des fichiers
 
 exports.getAllSauces = (req, res, next) => {
