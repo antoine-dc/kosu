@@ -77,8 +77,19 @@ exports.deleteStudent = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }))
 }
 
-exports.getStudent = (req, res, next) => {
+exports.getStudentByUsername = (req, res, next) => {
   Student.findOne({ username: req.params.username })
+    .then((student) => {
+      res.status(200).json(student)
+    })
+    .catch((error) => {
+      res.status(404).json({ error: error })
+    })
+}
+
+exports.getStudent = (req, res, next) => {
+  const username = req.username
+  Student.findOne({ username: username })
     .then((student) => {
       res.status(200).json(student)
     })
